@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisador de Vendas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Analisador de Relatórios de Vendas</h1>
+            <p>Faça o upload de um arquivo CSV de vendas para gerar um relatório profissional em PDF.</p>
+        </header>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="caixa-de-erro">
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <main>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <label for="arquivo_csv" class="label-arquivo">
+                    <span id="nome-do-arquivo">Escolher Arquivo (.csv)</span>
+                </label>
+                <input type="file" name="arquivo_csv" id="arquivo_csv" required>
+                <button type="submit" class="botao-principal">Analisar Arquivo</button>
+            </form>
+        </main>
+    </div>
+
+    <script>
+        // Este script atualiza o texto do botão com o nome do arquivo selecionado.
+        const inputDoArquivo = document.getElementById('arquivo_csv');
+        const spanNomeDoArquivo = document.getElementById('nome-do-arquivo');
+
+        inputDoArquivo.addEventListener('change', function() {
+            // Verifica se um ou mais arquivos foram selecionados
+            if (inputDoArquivo.files && inputDoArquivo.files.length > 0) {
+                // Pega o nome do primeiro arquivo e atualiza o texto
+                spanNomeDoArquivo.textContent = inputDoArquivo.files[0].name;
+            } else {
+                // Se o usuário cancelar, volta ao texto original
+                spanNomeDoArquivo.textContent = 'Escolher Arquivo (.csv)';
+            }
+        });
+    </script>
+</body>
+</html>

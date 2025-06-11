@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado da Análise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Análise Concluída com Sucesso!</h1>
+            <p>Seu relatório está pronto para download.</p>
+        </header>
+
+        <main>
+            <div class="caixa-resultado">
+                <h2>Resumo da Análise</h2>
+                <p><strong>Faturamento Total:</strong> {{ resumo.faturamento_total_fmt }}</p>
+                <p><strong>Produtos Vendidos (Sucesso):</strong> {{ resumo.quantidade_total_produtos_aprovados }} unidades</p>
+            </div>
+
+            <a href="{{ url_for('download_de_relatorio', nome_do_arquivo=nome_arquivo_pdf) }}" class="botao-principal">
+                Baixar Relatório em PDF
+            </a>
+
+            <a href="{{ url_for('index') }}" class="link-voltar">Analisar outro arquivo</a>
+        </main>
+    </div>
+</body>
+</html>
